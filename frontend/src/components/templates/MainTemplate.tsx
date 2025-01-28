@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../organisms/Header";
 import Footer from "../organisms/Footer";
 import { IMainTemplateProps } from "../../application/interfaces/main";
-
+import "../../app/globals.css";
 
 const MainTemplate: React.FC<IMainTemplateProps> = ({ children }) => {
   return (
