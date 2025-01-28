@@ -6,3 +6,11 @@ export interface IProduct {
     description: string;
     image: string;
 }
+
+export interface IProductProps {
+    product: IProduct;
+}
+
+export interface IProductListProps {
+    products: IProduct[];
+}
