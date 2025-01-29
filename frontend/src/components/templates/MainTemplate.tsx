@@ -3,12 +3,10 @@ import Header from "../organisms/Header";
 import Footer from "../organisms/Footer";
 import { IMainTemplateProps } from "../../application/interfaces/main";
 import "../../app/globals.css";
-import Text from "../atoms/Text";
-import { TagTypes } from "@/application/enums/tags";
-import InputGroup from "../molecules/InputGroup";
+import AsideForm from "../organisms/AsideForm";
 import Button from "../atoms/Button";
-import { ButtonTypes } from "@/application/enums/button";
-import FormProduct from "../organisms/FormProduct";
+import ExpandIcon from "../atoms/ExpandIcon";
+import CloseIcon from "../atoms/CloseIcon";
 
 
 const MainTemplate: React.FC<IMainTemplateProps> = ({ children }) => {
@@ -21,39 +19,23 @@ const MainTemplate: React.FC<IMainTemplateProps> = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex flex-grow container mx-auto p-4">
-        
+      <div className="flex flex-grow container mx-auto p-4">        
         <main className={`flex-grow transition-all duration-300 ${isAsideVisible ? "mr-4" : ""}`}>
           {children}
         </main>
-
-        <aside
-          className={`fixed right-0 top-0 h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isAsideVisible ? "translate-x-0" : "translate-x-full"}`}
-          style={{ width: "320px" }}
-        >
-          <div className="p-6">
-            <Text className="text-xl font-bold mb-4" tag={TagTypes.Heading2}>Formulário</Text>
-            <FormProduct />            
-          </div>
-        </aside>
+        <AsideForm isAsideVisible={isAsideVisible} />        
       </div>
 
-      {/* Botão para expandir/retrair o aside */}
-      <button
+      <Button
         onClick={toggleAside}
         className="fixed right-4 bottom-4 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         {isAsideVisible ? (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <ExpandIcon />          
         ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-          </svg>
+          <CloseIcon />
         )}
-      </button>
-
+      </Button>
       <Footer />
     </div>
   );

@@ -5,12 +5,4 @@ export interface IProduct {
     price: number;
     description: string;
     image: string;
-}
-
-export interface IProductProps {
-    product: IProduct;
-}
-
-export interface IProductListProps {
-    products: IProduct[];
-}
+};

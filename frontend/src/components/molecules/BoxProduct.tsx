@@ -1,10 +1,10 @@
 import React from "react";
 import ProductImage from "../atoms/ProductImage";
 import Text from "../atoms/Text";
-import { IProductProps } from "@/application/interfaces/product";
+import { IProduct } from "@/application/interfaces/product";
 import { TagTypes } from "@/application/enums/tags";
 
-const BoxProduct: React.FC<IProductProps> = ({product}) => {
+const BoxProduct: React.FC<{product: IProduct;}> = ({product}) => {
     return (        
         <div key={product.id} className="border p-4 rouded-lg shadow-md">
             <ProductImage product={product} />							
