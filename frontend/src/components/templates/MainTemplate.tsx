@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import Header from "../organisms/Header";
 import Footer from "../organisms/Footer";
-import { IMainTemplateProps } from "../../application/interfaces/main";
-import "../../app/globals.css";
 import AsideForm from "../organisms/AsideForm";
 import Button from "../atoms/Button";
 import ExpandIcon from "../atoms/ExpandIcon";
 import CloseIcon from "../atoms/CloseIcon";
-
+import { IMainTemplateProps } from "../../application/interfaces/main";
+import "../../app/globals.css";
 
 const MainTemplate: React.FC<IMainTemplateProps> = ({ children }) => {
   const [isAsideVisible, setIsAsideVisible] = useState(false);

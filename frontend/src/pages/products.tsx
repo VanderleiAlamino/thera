@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { IProductResponse } from "@/application/interfaces/product";
+import { TagTypes } from "@/application/enums/tags";
 import ProductService from "@/domain/services/productService";
 import ProductList from "@/components/organisms/ProductList";
 import Text from "@/components/atoms/Text";
-import { TagTypes } from "@/application/enums/tags";
 import MainTemplate from "@/components/templates/MainTemplate";
-import { IProductResponse } from "@/application/interfaces/product";
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<IProductResponse[]>([]);

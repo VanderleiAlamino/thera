@@ -1,10 +1,12 @@
+import { InputTypes } from "../enums/input";
+
 export interface IInput {
     name: string;
     id?: string;
-    type?: string;
+    type?: InputTypes;
     className?: string;    
     placeholder?: string;
     required?: boolean;
     value?: any;
-    onChange?: () => void;
+    onChange?: any;
 }

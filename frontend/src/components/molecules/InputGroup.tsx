@@ -6,13 +6,19 @@ import { IInputGroup } from "@/application/interfaces/input-group";
 const InputGroup: React.FC<IInputGroup> = ({ input, label, className }) => {
     return (
         <div className={className}>
-            <Label htmlFor={label.htmlFor} className={label.className}>{label.children}</Label>
+            <Label 
+                htmlFor={label.htmlFor} 
+                className={label.className}
+            >
+                {label.children}
+            </Label>
             <Input 
                 type={input.type}
                 id={input.id}
                 name={input.name}
                 className={input.className}
                 placeholder={input.placeholder}
+                onChange={input.onChange}
             />                
         </div>
     );
