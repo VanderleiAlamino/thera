@@ -6,3 +6,5 @@ export interface IProduct {
     description: string;
     image: string;
 };
+
+export interface IProductResponse extends IProduct {};
