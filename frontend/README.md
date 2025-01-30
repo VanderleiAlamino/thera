@@ -87,7 +87,7 @@ frontend/
 
 1. **Clone o repositório**:
    ```bash
-   git clone https://github.com/seu-usuario/Thera.git
+   git clone https://github.com/VanderleiAlamino/Thera.git
    cd Thera/frontend
    ```
 

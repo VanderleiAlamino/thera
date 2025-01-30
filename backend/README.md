@@ -39,7 +39,7 @@ backend/
 
 ### 1. Clonar o repositório
 ```bash
-git clone https://github.com/seu-usuario/Thera.git
+git clone https://github.com/VanderleiAlamino/Thera.git
 cd Thera/backend
 ```
 
