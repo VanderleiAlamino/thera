@@ -15,9 +15,9 @@ const NavMenu: React.FC = () => {
           Produtos
         </Button>
       </Link>
-      <Link href="/sobre" passHref>
+      <Link href="/new-product" passHref>
         <Button className="px-4 py-2 bg-blue-500 text-white rounded">
-          Sobre
+          Novo Produto
         </Button>
       </Link>
     </nav>

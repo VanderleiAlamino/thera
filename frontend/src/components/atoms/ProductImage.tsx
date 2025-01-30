@@ -1,7 +1,7 @@
 import React from "react";
-import { IProductProps } from "@/application/interfaces/product";
+import { IProduct } from "@/application/interfaces/product";
 
-const ProductImage: React.FC<IProductProps> = ({product}) => {
+const ProductImage: React.FC<{product: IProduct;}> = ({product}) => {
 
     return (
         <img 

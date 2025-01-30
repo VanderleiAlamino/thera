@@ -1,27 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputGroup from "../molecules/InputGroup";
 import Button from "../atoms/Button";
-import Modal from "../molecules/Modal";
 import ProductService from "@/domain/services/productService";
 import { ButtonTypes } from "@/application/enums/button";
 import { InputTypes } from "@/application/enums/input";
 import { RandomNumber } from "@/infrastructure/utils/random";
+import { IProductProps, IProductResponse } from "@/application/interfaces/product";
+import { useRouter } from "next/router";
+import productService from "@/domain/services/productService";
+import FORMSTYLES from "@/infrastructure/utils/formStyles";
 
-const FormProduct: React.FC<{ modal: (message: string) => void }> = ({ modal }) => {
-  const INPUT_CLASS_NAME = "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500";
-  const LABEL_CLASS_NAME = "block text-sm font-medium text-gray-700";
-  const BUTTON_CLASS_NAME = "w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500";
+const FormProduct: React.FC<IProductProps> = ({ modal, edit }) => {
+  const router = useRouter();
+  const { id } = router.query;  
 
   const RANDOM_ID = RandomNumber();
-
+  const [productEdit, setProductEdit] = useState<IProductResponse | null>(null);
   const [product, setProduct] = useState({
     id: RANDOM_ID,
+    _id: "",
     name: "",
     category: "",
     price: 0,
     description: "",
     image: "",
   });
+
+  useEffect(() => {
+    if (typeof id === "string" && edit) { 
+      productService.findOne(id)
+        .then((data) => {
+          if (data) {
+            setProductEdit(data);
+          }
+        })
+        .catch(() => {          
+          console.error("Erro ao buscar produto")
+        });
+      
+    }        
+  }, [id, edit]);
+
+  useEffect(() => {
+    if (productEdit && edit) {
+      setProduct({
+        id: productEdit.id ?? RANDOM_ID,
+        _id: productEdit._id || "",
+        name: productEdit.name || "",
+        category: productEdit.category || "",
+        price: productEdit.price || 0,
+        description: productEdit.description || "",
+        image: productEdit.image || "",
+      });
+    }
+  }, [productEdit, edit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,57 +67,51 @@ const FormProduct: React.FC<{ modal: (message: string) => void }> = ({ modal }) 
     e.preventDefault();
 
     try {
-      await ProductService.createProduct(product);
-      modal("Produto cadastrado com sucesso!");
+      if (edit) {
+        await ProductService.updateProduct(product._id, product);
+        modal("Produto atualizado com sucesso!");
+      } else {
+        await ProductService.createProduct(product);
+        modal("Produto cadastrado com sucesso!");
+      }
     } catch (error) {
-      modal("Erro ao cadastrar o produto. Tente novamente.");
+      modal("Erro ao salvar o produto. Tente novamente.");
     }
   };
 
+
   return (
-    <>
+    <>    
       <form onSubmit={handleSubmit}>
         <InputGroup
           className="mb-4"
-          label={{
-            htmlFor: "name",
-            children: "Produto",
-            className: LABEL_CLASS_NAME,
-          }}
+          label={{ htmlFor: "name", children: "Produto", className: FORMSTYLES.label }}
           input={{
             id: "name",
             name: "name",
             required: true,
             value: product.name,
             onChange: handleChange,
-            className: INPUT_CLASS_NAME,
+            className: FORMSTYLES.input,
           }}
         />
 
         <InputGroup
           className="mb-4"
-          label={{
-            htmlFor: "category",
-            children: "Categoria",
-            className: LABEL_CLASS_NAME,
-          }}
+          label={{ htmlFor: "category", children: "Categoria", className: FORMSTYLES.label }}
           input={{
             id: "category",
             name: "category",
             required: true,
             value: product.category,
             onChange: handleChange,
-            className: INPUT_CLASS_NAME,
+            className: FORMSTYLES.input,
           }}
         />
 
         <InputGroup
           className="mb-4"
-          label={{
-            htmlFor: "price",
-            children: "Preço",
-            className: LABEL_CLASS_NAME,
-          }}
+          label={{ htmlFor: "price", children: "Preço", className: FORMSTYLES.label }}
           input={{
             id: "price",
             name: "price",
@@ -93,47 +119,39 @@ const FormProduct: React.FC<{ modal: (message: string) => void }> = ({ modal }) 
             type: InputTypes.Number,
             value: product.price,
             onChange: handleChange,
-            className: INPUT_CLASS_NAME,
+            className: FORMSTYLES.input,
           }}
         />
 
         <InputGroup
           className="mb-4"
-          label={{
-            htmlFor: "description",
-            children: "Descrição",
-            className: LABEL_CLASS_NAME,
-          }}
+          label={{ htmlFor: "description", children: "Descrição", className: FORMSTYLES.label }}
           input={{
             id: "description",
             name: "description",
             required: true,
             value: product.description,
             onChange: handleChange,
-            className: INPUT_CLASS_NAME,
+            className: FORMSTYLES.input,
           }}
         />
 
         <InputGroup
           className="mb-4"
-          label={{
-            htmlFor: "image",
-            children: "Imagem",
-            className: LABEL_CLASS_NAME,
-          }}
+          label={{ htmlFor: "image", children: "Imagem", className: FORMSTYLES.label }}
           input={{
             id: "image",
             name: "image",
             required: true,
             value: product.image,
             onChange: handleChange,
-            className: INPUT_CLASS_NAME,
+            className: FORMSTYLES.input,
             placeholder: "Url da Imagem",
           }}
         />
 
-        <Button type={ButtonTypes.Submit} className={BUTTON_CLASS_NAME}>
-          Enviar
+        <Button type={ButtonTypes.Submit} className={FORMSTYLES.button}>
+          {edit ? "Atualizar" : "Enviar"}
         </Button>
       </form>
     </>

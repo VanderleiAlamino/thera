@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Put, Post, Body, Param, Delete } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Product } from './product.interface';
 
@@ -6,15 +6,31 @@ import { Product } from './product.interface';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  // Criar produto
   @Post()
   async create(@Body() productData: Product) {
     return this.productsService.create(productData);
   }
 
-  // Listar todos os produtos
   @Get()
   async findAll(): Promise<Product[]> {
     return this.productsService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string): Promise<Product> {
+    return this.productsService.findOne(id);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() productData: Partial<Product>,
+  ): Promise<Product> {
+    return this.productsService.update(id, productData);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<void> {
+    return this.productsService.delete(id);
   }
 }

@@ -1,50 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import ProductImage from "../atoms/ProductImage";
 import Text from "../atoms/Text";
 import { IProduct } from "@/application/interfaces/product";
 import { TagTypes } from "@/application/enums/tags";
 import EditIcon from "../atoms/EditIcon";
 import DeleteIcon from "../atoms/DeleteIcon";
-
+import Link from "next/link";
+import productService from "@/domain/services/productService";
+import Modal from "./Modal";
 
 const BoxProduct: React.FC<{product: IProduct;}> = ({product}) => {
-
-    const handleEdit = () => {
-        // Lógica para editar o produto
-        console.log("Editar produto:", product.id);
-    };
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMessage, setModalMessage] = useState("");
 
     const handleDelete = () => {
-        // Lógica para deletar o produto
-        console.log("Deletar produto:", product.id);
+        if (product._id) {
+            productService.delete(product._id)
+                .then(() => {
+                    setModalMessage('Produto deletado com sucesso');
+                    setIsModalOpen(true);
+                })
+                .catch(() => {
+                    setModalMessage('Erro ao deletar o produto');
+                    setIsModalOpen(true);
+                });
+        }
     };
+    
 
-    return (        
-        <div key={product.id} className="border p-4 rouded-lg shadow-md relative">           
-            
-            <div className="absolute top-2 right-2 flex space-x-2">
-                <button
-                    onClick={handleEdit}
-                    className="text-blue-500 hover:text-blue-700"
-                    aria-label="Editar produto"
-                >
-                    <EditIcon />
-                </button>
-                <button
-                    onClick={handleDelete}
-                    className="text-red-500 hover:text-red-700"
-                    aria-label="Deletar produto"
-                >
-                    <DeleteIcon />
-                </button>
+    return (
+        <>
+            <div key={product._id} className="border p-4 rouded-lg shadow-md relative"> 
+                <div className="absolute top-2 right-2 flex space-x-2">
+                    <Link href={`/edit-product/${product._id}`}>                    
+                        <EditIcon />                    
+                    </Link>
+                    <button
+                        onClick={handleDelete}
+                        className="text-red-500 hover:text-red-700"
+                        aria-label="Deletar produto"
+                    >
+                        <DeleteIcon />
+                    </button>
+                </div>
+
+                <ProductImage product={product} />						
+                <Text className="text-x1 font-semibold" tag={TagTypes.Heading1}> {product.name} </Text>
+                <Text className="text-gray-600"> {product.category} </Text>
+                <Text className="text-gray-800 font-bold"> {product.price.toFixed(2)} </Text>
+                <Text className="text-gray-700 mt-2"> {product.description} </Text>
             </div>
-
-            <ProductImage product={product} />							
-            <Text className="text-x1 font-semibold" tag={TagTypes.Heading1}> {product.name} </Text>
-            <Text className="text-gray-600"> {product.category} </Text>
-            <Text className="text-gray-800 font-bold"> {product.price.toFixed(2)} </Text>
-            <Text className="text-gray-700 mt-2"> {product.description} </Text>
-        </div>
+            
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Status do Cadastro">
+                <p>{modalMessage}</p>
+            </Modal>
+        </>   
+        
     )
 }
 

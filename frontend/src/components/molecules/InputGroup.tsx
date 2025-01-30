@@ -16,6 +16,7 @@ const InputGroup: React.FC<IInputGroup> = ({ input, label, className }) => {
                 type={input.type}
                 id={input.id}
                 name={input.name}
+                value={input.value}
                 className={input.className}
                 placeholder={input.placeholder}
                 onChange={input.onChange}

@@ -27,7 +27,7 @@ const MainTemplate: React.FC<IMainTemplateProps> = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="flex flex-grow container mx-auto p-4">
+      <div className="flex flex-grow container mx-auto p-4 pt-16 mt-4">
         <main className={`flex-grow transition-all duration-300 ${isAsideVisible ? "mr-4" : ""}`}>
           {children}
         </main>

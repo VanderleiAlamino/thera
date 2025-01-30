@@ -9,7 +9,8 @@ const Input:React.FC<IInput> = ({
         className, 
         name, 
         placeholder, 
-        onChange
+        onChange,
+        value
     }) => {
 
     return (        
@@ -19,6 +20,7 @@ const Input:React.FC<IInput> = ({
             name={name}
             className={className}
             placeholder={placeholder}
+            value={value}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e)}
         />
     )
