@@ -9,6 +9,8 @@ import Link from "next/link";
 import productService from "@/domain/services/productService";
 import Modal from "./Modal";
 import Button from "../atoms/Button";
+import ManagementIcons from "./ManagementIcons";
+
 
 const BoxProduct: React.FC<{product: IProduct;}> = ({product}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,18 +34,23 @@ const BoxProduct: React.FC<{product: IProduct;}> = ({product}) => {
     return (
         <>
             <div key={product._id} className="border p-4 rouded-lg shadow-md relative"> 
-                <div className="absolute top-2 right-2 flex space-x-2">
-                    <Link href={`/edit-product/${product._id}`}>                    
+                <ManagementIcons product={product} handleDelete={handleDelete}  />
+
+                {/* <div className="absolute top-2 right-2 flex space-x-2 bg-black bg-opacity-90 p-2 rounded-lg">
+                    <Link 
+                        href={`/edit-product/${product._id}`} 
+                        className="bg-white rounded-full p-2 text-blue-500 hover:text-blue-700 flex items-center justify-center"
+                    >
                         <EditIcon />                    
                     </Link>
                     <Button
                         onClick={handleDelete}
-                        className="text-red-500 hover:text-red-700"
+                        className="bg-white rounded-full p-2 flex items-center justify-center text-red-500 hover:text-red-700"
                         aria-label="Deletar produto"
                     >
                         <DeleteIcon />
                     </Button>
-                </div>
+                </div> */}
 
                 <ProductImage product={product} />						
                 <Text className="text-x1 font-semibold" tag={TagTypes.Heading1}> {product.name} </Text>

@@ -1,10 +1,10 @@
 import { TagTypes } from "@/application/enums/tags";
-import ImageSvg from "@/components/atoms/ImageSvg";
 import Text from "@/components/atoms/Text";
 import Modal from "@/components/molecules/Modal";
 import FormProduct from "@/components/organisms/FormProduct";
 import MainTemplate from "@/components/templates/MainTemplate";
 import { useState } from "react";
+import image from "../infrastructure/images/form.jpg";
 
 const NewProduct: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,17 +17,13 @@ const NewProduct: React.FC = () => {
 
     return (
         <MainTemplate>
-            <Text className="text-2xl font-bold mb-4" tag={TagTypes.Heading1}>
-                Novo produto
-            </Text>
+            <div className="flex flex-col items-center justify-center min-h-screen">
+                <Text className="text-2xl font-bold mb-4 text-center" tag={TagTypes.Heading1}>
+                    Novo produto
+                </Text>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">                
-                <div className="w-full">
+                <div className="w-full max-w-lg">
                     <FormProduct modal={handleModal} />
-                </div>
-
-                <div className="hidden md:flex items-center justify-center">
-                    <ImageSvg />
                 </div>
             </div>
 

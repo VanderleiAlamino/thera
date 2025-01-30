@@ -1,5 +1,4 @@
 import { TagTypes } from "@/application/enums/tags";
-import ImageSvg from "@/components/atoms/ImageSvg";
 import Text from "@/components/atoms/Text";
 import Modal from "@/components/molecules/Modal";
 import FormProduct from "@/components/organisms/FormProduct";
@@ -18,19 +17,15 @@ const EditProduct: React.FC = () => {
 
     return (
         <MainTemplate>
-            <Text className="text-2xl font-bold mb-4" tag={TagTypes.Heading1}>
-                Editar produto
-            </Text>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="flex flex-col items-center justify-center min-h-screen">
                 
-                <div className="w-full">
-                    <FormProduct modal={handleModal} edit={true} />
-                </div>
+                <Text className="text-2xl font-bold mb-4" tag={TagTypes.Heading1}>
+                    Editar produto
+                </Text>
 
-                <div className="hidden md:flex items-center justify-center">
-                    <ImageSvg />
-                </div>
+                <div className="w-full max-w-lg">
+                    <FormProduct modal={handleModal} edit={true} />
+                </div>                
             </div>
 
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Status do Cadastro">
