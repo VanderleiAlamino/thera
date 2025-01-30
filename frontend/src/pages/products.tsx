@@ -22,12 +22,21 @@ const Products: React.FC = () => {
     fetchProducts();
   }, []);
 
+  const handleProductDeleted = async () => {
+    try {
+      const fetchedProducts = await ProductService.fetchProducts();
+      setProducts(fetchedProducts);
+    } catch (error) {
+      console.error("Erro ao buscar produtos", error);
+    }
+  };
+
   return (
     <MainTemplate>
       <Text className="text-2x1 font-bold mb-4" tag={TagTypes.Heading1}>
         Produtos
       </Text>
-      <ProductList products={products} />
+      <ProductList products={products} onProductDeleted={handleProductDeleted} />
     </MainTemplate>
   );
 };
