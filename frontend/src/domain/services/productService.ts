@@ -13,7 +13,7 @@ class ProductService {
     }
   }
 
-  async createProduct(product: IProduct): Promise<IProductResponse> {
+  async createProduct(product: IProduct): Promise<IProductResponse> {    
     try {
       const response = await axios.post(BASE_URL, product);
       return response.data;

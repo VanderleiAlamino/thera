@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import ProductImage from "../atoms/ProductImage";
-import Text from "../atoms/Text";
 import { IProduct } from "@/application/interfaces/product";
 import { TagTypes } from "@/application/enums/tags";
+import ProductImage from "../atoms/ProductImage";
+import Text from "../atoms/Text";
 import EditIcon from "../atoms/EditIcon";
 import DeleteIcon from "../atoms/DeleteIcon";
 import Link from "next/link";
 import productService from "@/domain/services/productService";
 import Modal from "./Modal";
+import Button from "../atoms/Button";
 
 const BoxProduct: React.FC<{product: IProduct;}> = ({product}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,13 +36,13 @@ const BoxProduct: React.FC<{product: IProduct;}> = ({product}) => {
                     <Link href={`/edit-product/${product._id}`}>                    
                         <EditIcon />                    
                     </Link>
-                    <button
+                    <Button
                         onClick={handleDelete}
                         className="text-red-500 hover:text-red-700"
                         aria-label="Deletar produto"
                     >
                         <DeleteIcon />
-                    </button>
+                    </Button>
                 </div>
 
                 <ProductImage product={product} />						

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import InputGroup from "../molecules/InputGroup";
 import Button from "../atoms/Button";
-import ProductService from "@/domain/services/productService";
 import { ButtonTypes } from "@/application/enums/button";
 import { InputTypes } from "@/application/enums/input";
 import { RandomNumber } from "@/infrastructure/utils/random";
@@ -17,8 +16,7 @@ const FormProduct: React.FC<IProductProps> = ({ modal, edit }) => {
   const RANDOM_ID = RandomNumber();
   const [productEdit, setProductEdit] = useState<IProductResponse | null>(null);
   const [product, setProduct] = useState({
-    id: RANDOM_ID,
-    _id: "",
+    id: edit ? (productEdit?.id || RANDOM_ID) : RANDOM_ID,
     name: "",
     category: "",
     price: 0,
@@ -26,26 +24,37 @@ const FormProduct: React.FC<IProductProps> = ({ modal, edit }) => {
     image: "",
   });
 
+  const handleModalMessage = (message: string) => {
+    if (modal) modal(message);
+  }; 
+  
+
   useEffect(() => {
-    if (typeof id === "string" && edit) { 
+    if (edit && id && typeof id === "string") {
       productService.findOne(id)
         .then((data) => {
           if (data) {
-            setProductEdit(data);
+            setProduct({
+              id: data.id,
+              name: data.name || "",
+              category: data.category || "",
+              price: data.price || 0,
+              description: data.description || "",
+              image: data.image || "",
+            });
           }
         })
-        .catch(() => {          
-          console.error("Erro ao buscar produto")
+        .catch(() => {
+          console.error("Erro ao buscar produto");
         });
-      
-    }        
+    }
   }, [id, edit]);
+  
 
   useEffect(() => {
     if (productEdit && edit) {
       setProduct({
-        id: productEdit.id ?? RANDOM_ID,
-        _id: productEdit._id || "",
+        id: RANDOM_ID,
         name: productEdit.name || "",
         category: productEdit.category || "",
         price: productEdit.price || 0,
@@ -67,15 +76,15 @@ const FormProduct: React.FC<IProductProps> = ({ modal, edit }) => {
     e.preventDefault();
 
     try {
-      if (edit) {
-        await ProductService.updateProduct(product._id, product);
-        modal("Produto atualizado com sucesso!");
+      if (edit && typeof id === 'string') {
+        await productService.updateProduct(id, product);        
+        handleModalMessage("Produto atualizado com sucesso!");        
       } else {
-        await ProductService.createProduct(product);
-        modal("Produto cadastrado com sucesso!");
+        await productService.createProduct(product);        
+        handleModalMessage("Produto cadastrado com sucesso!");        
       }
     } catch (error) {
-      modal("Erro ao salvar o produto. Tente novamente.");
+        handleModalMessage("Erro ao salvar o produto. Tente novamente.");
     }
   };
 
