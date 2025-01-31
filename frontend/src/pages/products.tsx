@@ -13,7 +13,6 @@ const Products: React.FC = () => {
   const [products, setProducts] = useState<IProductResponse[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // Carrega todos os produtos ao montar o componente
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -27,17 +26,14 @@ const Products: React.FC = () => {
     fetchProducts();
   }, []);
 
-  // Função de busca
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
-  // Filtra os produtos com base no nome digitado
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Atualiza a lista de produtos após a exclusão de um produto
   const handleProductDeleted = async () => {
     try {
       const fetchedProducts = await ProductService.fetchProducts();
