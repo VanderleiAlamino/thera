@@ -4,7 +4,7 @@ import Button from "../atoms/Button";
 import { ButtonTypes } from "@/application/enums/button";
 import { InputTypes } from "@/application/enums/input";
 import { RandomNumber } from "@/infrastructure/utils/random";
-import { IProductProps, IProductResponse } from "@/application/interfaces/product";
+import { IProductProps } from "@/application/interfaces/product";
 import { useRouter } from "next/router";
 import productService from "@/domain/services/productService";
 import FORMSTYLES from "@/infrastructure/utils/formStyles";

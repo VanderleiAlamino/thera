@@ -4,7 +4,6 @@ import Modal from "@/components/molecules/Modal";
 import FormProduct from "@/components/organisms/FormProduct";
 import MainTemplate from "@/components/templates/MainTemplate";
 import { useState } from "react";
-import image from "../infrastructure/images/form.jpg";
 
 const NewProduct: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
