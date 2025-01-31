@@ -38,14 +38,22 @@ class ProductService {
     } catch (error) {
       throw new Error(`Erro ao atualizar produto com ID ${id}: ${error}`);
     }
-  }
-  
+  }  
 
   async delete(id: string): Promise<void> {
     try {
       await axios.delete(`${BASE_URL}/${id}`);
     } catch (error) {
       throw new Error(`Erro ao excluir produto com ID ${id}: ${error}`);
+    }
+  }
+
+  async searchProductsByName(name: string): Promise<IProductResponse[]> {
+    try {
+      const response = await axios.get(`${BASE_URL}?name_like=${name}`);
+      return response.data;
+    } catch (error) {
+      throw new Error("Erro ao buscar produtos pelo nome: " + error);
     }
   }
 }
