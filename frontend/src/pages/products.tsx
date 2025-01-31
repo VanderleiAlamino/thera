@@ -69,7 +69,6 @@ const Products: React.FC = () => {
         />
       </div>
 
-      {/* Verifica se há produtos filtrados e exibe uma mensagem se não houver nenhum */}
       {filteredProducts.length === 0 ? (
         <div className="text-center text-red-500 font-semibold">
           Nenhum produto encontrado
