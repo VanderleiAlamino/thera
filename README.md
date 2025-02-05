@@ -119,16 +119,6 @@ yarn dev
 
 A aplicação estará disponível em: `http://localhost:3000`.
 
-### 5. Testes
-
-Para rodar os testes do frontend:
-
-```bash
-npm test
-# ou
-yarn test
-```
-
 ---
 
 ## 📌 Endpoints da API Backend
