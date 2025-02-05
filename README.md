@@ -76,16 +76,6 @@ yarn start:dev
 
 A API estará disponível em: `http://localhost:3000`.
 
-### 5. Testes
-
-Para rodar os testes unitários, use:
-
-```bash
-npm test
-# ou
-yarn test
-```
-
 ---
 
 ## 📂 Como Usar o Frontend
