@@ -36,8 +36,7 @@ export class ProductsService {
     }
   
     return updatedProduct;
-  }
-  
+  }  
 
   async delete(id: string): Promise<void> {
     const result = await this.productModel.deleteOne({ _id: id }).exec();

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IProduct, IProductResponse } from "@/application/interfaces/product";
 
-const BASE_URL = "http://localhost:3000/products";
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/products`;
 
 class ProductService {
   async fetchProducts(): Promise<IProductResponse[]> {
